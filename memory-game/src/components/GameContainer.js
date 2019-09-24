@@ -28,7 +28,7 @@ class GameContainer extends Component {
 
 
     shufflePictures = () => {
-        // fisher-yates shuffle woo
+        //fisher yates shuffle
         let j = 0
         let tempVar = null
         let tempArray = this.state.imageArr;
@@ -45,58 +45,62 @@ class GameContainer extends Component {
 
     clickHandler = event => {
         event.preventDefault();
+        let won = true;
+        let newScore = this.state.userScore;
         const clickedID = parseInt(event.target.id);
         const newImageArr = this.state.imageArr.map(item => {
             if (item.id === clickedID) {
-
                 if (item.clicked === true) {
-                    alert("You looose");
-                    this.setState({
-                        won: false
-                    })
-                    
+                    won = false
+                    console.log('here1')
                 }
                 else {
                     item.clicked = true;
-                    const newScore = this.state.userScore+1;
-                    this.setState({
-                        userScore: newScore
-                    })
+                    newScore = this.state.userScore + 1;
                 }
             }
             return item;
         })
-        if(this.state.won===true){
+
+        if (won === true) {
             this.setState({
-                imageArr: newImageArr
-            }, () => { console.log(this.state.imageArr) 
-            this.shufflePictures() })
-            
-        } else {alert("You looose")
-        const newGameArr = this.state.imageArr.map(item  => item.clicked = false)
-        this.setState({
-            won: true,
-            userScore: 0,
-            imageArr: newGameArr
-        }, () => this.shufflePictures())
+                imageArr: newImageArr,
+                userScore: newScore
+            }, () => {
+                console.log(this.state.imageArr)
+                this.shufflePictures()
+            })
+
+        } else {
+            alert("You looose")
+            const newGameArr = this.state.imageArr.map(item => {
+                item.clicked = false
+                return item
+            })
+            console.log('newGameArr', newGameArr);
+            this.setState({
+                won: true,
+                userScore: 0,
+                imageArr: newGameArr
+            }, () => this.shufflePictures())
         }
-       
+
     }
 
     render() {
         return (
             <>
-                <Header />
-                <p>userScore: {this.state.userScore}</p>
-                <div className="row">
-                    {this.state.imageArr.map(item => (
-                        <Card
-                            key={item.id}
-                            id={item.id}
-                            img={item.image}
-                            clickHandler={this.clickHandler} />
-                    ))}
-                </div>
+            <Header />
+            <p>userScore: {this.state.userScore}</p>
+            <div className="row">
+                {this.state.imageArr.map(item => (
+                    <Card
+                        key={item.id}
+                        id={item.id}
+                        img={item.image}
+                        clickHandler={this.clickHandler} />
+                ))}
+            </div>
             </>
         )
     }
