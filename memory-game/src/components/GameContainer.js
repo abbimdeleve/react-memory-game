@@ -28,7 +28,7 @@ class GameContainer extends Component {
 
 
     shufflePictures = () => {
-
+        // fisher-yates shuffle woo
         let j = 0
         let tempVar = null
         let tempArray = this.state.imageArr;

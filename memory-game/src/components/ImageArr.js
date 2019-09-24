@@ -48,6 +48,16 @@ const imageArr = [
         id: 10,
         image: "./images/horsePortfolio.jpg",
         clicked: false
+    },
+    {
+        id: 11,
+        image: "./images/horse9.jpg",
+        clicked: false
+    },
+    {
+        id: 12,
+        image: "./images/doubhorse.jpg",
+        clicked: false
     }
 ]
 
